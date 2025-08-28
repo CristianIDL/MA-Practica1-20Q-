@@ -4,10 +4,22 @@ from preguntas import questions
 # Función para preguntas
 # answer = "s/n", property = "propiedad clave de la lista questions" candidates="elementos de la base".
 def preguntar(answer, property, candidates):
-    # Filtra la base de datos según la respuesta del usuario.
+    # ans almacena True en el caso de que el usuario haya ingresado "s"
     ans = True if answer == "s" else False
-    # devuelve una lista con solo los objetos cuya propiedad clave coincide con la respuesta
-    return [d for d in candidates if d[property] == ans]
+    # Creamos un array vacío para agregar los elementos que coincidan
+    baseFiltrada = []
+
+    for d in candidates:
+        # Si el atributo existe comparar
+        if property in d:
+            if d[property] == ans:
+                baseFiltrada.append(d)
+        else:
+            # Si no existe asumimos False
+            if not ans:
+                baseFiltrada.append(d)
+    return baseFiltrada
+
 
 def adivinar(database, questions, max_preguntas=20):
     # Asignamos los valores de nuestra base original a la variable candidatos.
